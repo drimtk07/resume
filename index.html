@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>이력서 관리 시스템</title>
+  <style>
+    /* ——— 페이지 분할 방지 ——— */
+    .no-break {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    /* ——— SKILL 섹션 전용 스타일 ——— */
+    .skill-section h2 {
+      font-size: 22px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: .25rem;
+      margin: 2rem 0 .5rem 0;
+      color: #2E51A2;
+    }
+    .skill-category {
+      margin-bottom: 1.5rem;
+    }
+    .skill-category.no-break {
+      /* 소단위로 묶어서 페이지 내에서 잘리지 않게 함 */
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .skill-category h3 {
+      font-size: 18px;
+      color: #777;
+      margin-bottom: .5rem;
+    }
+    .skill-category ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      /* 3열로 분할 */
+      column-count: 3;
+      column-gap: 1rem;
+    }
+    .skill-category ul li {
+      position: relative;
+      padding-left: 1rem;
+      margin-bottom: .3rem;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    .skill-category ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #2E51A2;
+    }
+    .skill-divider {
+      border-bottom: 1px solid #e0e0e0;
+      margin: 1rem 0;
+    }
+    /* ——— EXPERIENCE 섹션 분할 방지 ——— */
+    .experience-item.no-break {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    /* ——— EDUCATION 섹션 분할 방지 ——— */
+    .education-item.no-break {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    /* ——— ADDITIONAL 분할 방지 ——— */
+    .additional-item.no-break {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    /* ——— ACTIVITY 섹션 전용 스타일 ——— */
+    .activity-section h2 {
+      font-size: 22px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: .25rem;
+      margin: 2rem 0 .5rem 0;
+      color: #2E51A2;
+    }
+    .activity-item {
+      margin-bottom: 1.5rem;
+    }
+    .activity-item.no-break {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .activity-item h3 {
+      font-size: 18px;
+      color: #777;
+      margin-bottom: .5rem;
+    }
+    .activity-item p {
+      margin: 0 0 .5rem 0;
+      font-size: 1rem;
+      color: #333;
+      line-height: 1.4;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    .paper {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 20mm; /* set contents area */
+      margin: 10mm auto;
+      border-radius: 5px;
+      background: #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body style="margin:0;padding-bottom:60px;background:#fafafa;color:#333;font-family:'Noto Sans KR',sans-serif;">
+  <main style="max-width:900px;margin:2rem auto;background:#fff;box-shadow:0 0 10px #ccc;border-radius:8px;padding:2rem;">
+    <!-- 저장 버튼들 -->
+    <div style="text-align:right;margin-bottom:1rem;">
+      <button onclick="downloadPDF()">PDF 저장</button>
+      <button onclick="exportToWord()">Word 저장</button>
+      <button onclick="exportToDocx()">Docx로 저장</button>
+    </div>
+
+    <!-- 이력서 보기 탭 -->
+    <section id="resumeView" style="display:block;">
+      <!-- 이름 & 연락처 -->
+      <h1 id="displayName" style="font-size:30px;margin:0 0 .5rem 0;color:#2E51A2;"></h1>
+      <div id="contactInfo" style="font-size:.95em;color:#555;margin-bottom:1rem;"></div>
+
+      <!-- 자기소개 -->
+      <section class="no-break">
+        <h2 style="font-size:22px;border-bottom:1px solid #ccc;padding-bottom:.25rem;margin:2rem 0 .5rem 0;color:#2E51A2;">자기소개</h2>
+        <p id="displayBio"></p>
+      </section>
+
+      <!-- 기술 스택 -->
+      <section class="skill-section">
+        <h2>SKILL</h2>
+
+        <!-- 언어 -->
+        <div class="skill-category no-break">
+          <h3>언어</h3>
+          <ul id="langList">
+            <!-- JS로 채워짐 -->
+          </ul>
+        </div>
+        <div class="skill-divider"></div>
+
+        <!-- 프레임워크/라이브러리 -->
+        <div class="skill-category no-break">
+          <h3>프레임워크/라이브러리</h3>
+          <ul id="fwList">
+            <!-- JS로 채워짐 -->
+          </ul>
+        </div>
+        <div class="skill-divider"></div>
+
+        <!-- 인프라 -->
+        <div class="skill-category no-break">
+          <h3>인프라</h3>
+          <ul id="infraList">
+            <!-- JS로 채워짐 -->
+          </ul>
+        </div>
+        <div class="skill-divider"></div>
+
+        <!-- DB -->
+        <div class="skill-category no-break">
+          <h3>DB</h3>
+          <ul id="dbList">
+            <!-- JS로 채워짐 -->
+          </ul>
+        </div>
+        <div class="skill-divider"></div>
+
+        <!-- Tool -->
+        <div class="skill-category no-break">
+          <h3>Tool</h3>
+          <ul id="toolList">
+            <!-- JS로 채워짐 -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- 프로젝트 이력 (경력) -->
+      <section>
+        <h2 style="font-size:22px;border-bottom:1px solid #ccc;padding-bottom:.25rem;margin:2rem 0 .5rem 0;color:#2E51A2;">
+          프로젝트 이력
+        </h2>
+        <div id="experienceContainer"></div>
+      </section>
+
+      <!-- 교육 사항 -->
+      <section>
+        <h2 style="font-size:22px;border-bottom:1px solid #ccc;padding-bottom:.25rem;margin:2rem 0 .5rem 0;color:#2E51A2;">교육 사항</h2>
+        <div id="educationContainer"></div>
+      </section>
+
+      <!-- 기타 사항 -->
+      <section>
+        <h2 style="font-size:22px;border-bottom:1px solid #ccc;padding-bottom:.25rem;margin:2rem 0 .5rem 0;color:#2E51A2;">기타 사항</h2>
+        <div id="additionalContainer" style="margin-top:1rem;">
+          <div class="additional-item no-break"><strong>자격증:</strong> <span id="certifications"></span></div>
+          <div class="additional-item no-break"><strong>언어:</strong> <span id="languages"></span></div>
+          <div class="additional-item no-break"><strong>취미:</strong> <span id="hobbies"></span></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- 외부 라이브러리 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.min.js"></script>
+
+  <script>
+    let resumeData = null;
+
+    // 페이지 로드 시 JSON 로드 및 렌더링
+    window.onload = async function() {
+      try {
+        const res = await fetch('resume.json');
+        resumeData = await res.json();
+        renderPersonal();
+        renderSkills();
+        renderExperience();
+        renderEducation();
+        renderAdditional();
+      } catch (err) {
+        console.error('resume.json 로딩 실패:', err);
+      }
+    };
+
+    // 개인 정보 & 자기소개 렌더링
+    function renderPersonal() {
+      const p = resumeData.personal || {};
+      document.getElementById('displayName').textContent = p.name || '';
+      document.getElementById('contactInfo').innerHTML =
+        (p.email ? '📧 ' + p.email + ' ' : '') +
+        (p.phone ? '📞 ' + p.phone + ' ' : '') +
+        (p.location ? '📍 ' + p.location + ' ' : '') +
+        (p.github ? `<a href="${p.github}" target="_blank">GitHub</a>` : '');
+      document.getElementById('displayBio').textContent = resumeData.bio || '';
+    }
+
+    // SKILL 섹션 렌더링 (JSON 내 분류된 skills)
+    function renderSkills() {
+      const cats = resumeData.skills || {};
+
+      // 언어 (Languages)
+      const langUl = document.getElementById('langList');
+      (cats["언어"] || []).forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        langUl.appendChild(li);
+      });
+
+      // 프레임워크/라이브러리 (Frameworks & Libraries)
+      const fwUl = document.getElementById('fwList');
+      (cats["프레임워크/라이브러리"] || []).forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        fwUl.appendChild(li);
+      });
+
+      // 인프라 (Infrastructure)
+      const infraUl = document.getElementById('infraList');
+      (cats["인프라"] || []).forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        infraUl.appendChild(li);
+      });
+
+      // DB (Databases)
+      const dbUl = document.getElementById('dbList');
+      (cats["DB"] || []).forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        dbUl.appendChild(li);
+      });
+
+      // Tool
+      const toolUl = document.getElementById('toolList');
+      (cats["Tool"] || []).forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        toolUl.appendChild(li);
+      });
+    }
+
+    // EXPERIENCE 섹션 렌더링
+    function renderExperience() {
+      const container = document.getElementById('experienceContainer');
+      container.innerHTML = '';
+      const exps = resumeData.experiences || [];
+      exps.forEach(exp => {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('experience-item', 'no-break');
+        wrapper.style.cssText = "display:flex;margin-top:2rem;";
+
+        const periodDiv = document.createElement('div');
+        periodDiv.textContent = exp.period;
+        periodDiv.style.cssText = "width:150px;font-size:18px;color:#777;flex-shrink:0;";
+        wrapper.appendChild(periodDiv);
+
+        const contentDiv = document.createElement('div');
+        contentDiv.style.cssText = "flex-grow:1;padding-left:1rem;";
+
+        const headerDiv = document.createElement('div');
+        headerDiv.style.cssText = "display:flex;align-items:baseline;margin-bottom:0.5rem;flex-wrap:wrap;gap:0.5rem;";
+
+        const compName = document.createElement('div');
+        compName.textContent = `${exp.company_kor} (${exp.company_eng})`;
+        compName.style.cssText = "font-size:20px;font-weight:bold;";
+        headerDiv.appendChild(compName);
+
+        if (exp.total_months) {
+          const badge = document.createElement('span');
+          badge.textContent = `${exp.total_months}개월`;
+          badge.style.cssText = "display:inline-block;background:#2E51A2;color:#fff;border-radius:4px;padding:2px 6px;font-size:0.8rem;";
+          headerDiv.appendChild(badge);
+        }
+        contentDiv.appendChild(headerDiv);
+
+        ['role','industry'].forEach(field => {
+          if (exp[field]) {
+            const div = document.createElement('div');
+            div.textContent = exp[field];
+            div.style.cssText = "font-size:.9rem;color:#666;margin-bottom:.3rem;font-family:'Noto Sans KR',sans-serif;";
+            contentDiv.appendChild(div);
+          }
+        });
+
+        if (exp.responsibilities && exp.responsibilities.length) {
+          const ul = document.createElement('ul');
+          ul.style.cssText = "margin:0;padding:0;list-style:none;";
+          exp.responsibilities.forEach(r => {
+            const li = document.createElement('li');
+            li.textContent = r;
+            li.style.cssText = "margin-bottom:.3rem;position:relative;padding-left:1rem;font-family:'Noto Sans KR',sans-serif;";
+            const bullet = document.createElement('span');
+            bullet.textContent = '•';
+            bullet.style.cssText = "position:absolute;left:0;color:#2E51A2;";
+            li.prepend(bullet);
+            ul.appendChild(li);
+          });
+          contentDiv.appendChild(ul);
+        }
+
+        if (exp.skills && exp.skills.length) {
+          const kwDiv = document.createElement('div');
+          kwDiv.style.marginTop = '0.5rem';
+          exp.skills.forEach(skill => {
+            const span = document.createElement('span');
+            span.textContent = skill;
+            span.style.cssText = `
+              display:inline-flex;
+              align-items:center;
+              justify-content:center;
+              background:#e0e7ff;
+              color:#3b3fda;
+              padding:0.1rem 0.2rem;
+              border:1px solid #3b3fda;
+              border-radius:2px;
+              font-size:0.8rem;
+              margin:0.2rem 0.2rem 0 0;
+              font-family:'Noto Sans KR',sans-serif;
+              vertical-align:middle;
+            `;
+            kwDiv.appendChild(span);
+          });
+          contentDiv.appendChild(kwDiv);
+        }
+
+        wrapper.appendChild(contentDiv);
+        container.appendChild(wrapper);
+      });
+    }
+
+    // 교육 사항 렌더링
+    function renderEducation() {
+      const eduDiv = document.getElementById('educationContainer');
+      eduDiv.innerHTML = '';
+      (resumeData.education || []).forEach(e => {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('education-item', 'no-break');
+        wrapper.style.marginBottom = '1.5rem';
+
+        const tbl = document.createElement('table');
+        tbl.style.cssText = "width:100%;border-collapse:collapse;margin-bottom:0.5rem;";
+        const tr = document.createElement('tr');
+
+        const tdContent = document.createElement('td');
+        tdContent.style.paddingLeft = '0';
+
+        const degreeEl = document.createElement('div');
+        degreeEl.textContent = `${e.period} | ${e.institution} | ${e.degree}`;
+        degreeEl.style.cssText = `
+          font-weight:bold;
+          font-size:1.1rem;
+          color:#3b3fda;
+          margin-bottom:0.3rem;
+          font-family:'Noto Sans KR',sans-serif;
+        `;
+        tdContent.appendChild(degreeEl);
+
+        if (e.description) {
+          const descUl = document.createElement('ul');
+          descUl.style.cssText = "list-style:none;padding-left:1rem;margin:0.5rem 0;";
+          const li = document.createElement('li');
+          li.textContent = e.description;
+          li.style.cssText = `
+            margin-bottom:0.3rem;
+            position:relative;
+            padding-left:1rem;
+            font-family:'Noto Sans KR',sans-serif;
+          `;
+          const bullet = document.createElement('span');
+          bullet.textContent = '•';
+          bullet.style.cssText = "position:absolute;left:0;color:#2E51A2;";
+          li.prepend(bullet);
+          descUl.appendChild(li);
+          tdContent.appendChild(descUl);
+        }
+
+        tr.appendChild(tdContent);
+        tbl.appendChild(tr);
+        wrapper.appendChild(tbl);
+
+        const hr = document.createElement('hr');
+        hr.style.cssText = "border:none;border-bottom:1px solid #ccc;margin:1rem 0;";
+        wrapper.appendChild(hr);
+
+        eduDiv.appendChild(wrapper);
+      });
+    }
+
+    // 기타 사항 렌더링
+    function renderAdditional() {
+      const add = resumeData.additional || {};
+      const certEl = document.getElementById('certifications');
+      certEl.textContent = (add.certifications || []).join(', ');
+      certEl.style.fontFamily = "'Noto Sans KR',sans-serif";
+
+      const langEl = document.getElementById('languages');
+      langEl.textContent = (add.languages || []).join(', ');
+      langEl.style.fontFamily = "'Noto Sans KR',sans-serif";
+
+      const hobbyEl = document.getElementById('hobbies');
+      hobbyEl.textContent = add.hobbies || '';
+      hobbyEl.style.fontFamily = "'Noto Sans KR',sans-serif";
+    }
+
+    // PDF 저장
+    function downloadPDF() {
+      const clone = document.getElementById('resumeView').cloneNode(true);
+      const container = document.createElement('div');
+      container.style.padding = '1rem';
+      container.appendChild(clone);
+      html2pdf()
+        .set({
+          margin: 0.5,
+          filename: '이력서.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        })
+        .from(container)
+        .save();
+    }
+
+    // Word 저장 (.doc)
+    function exportToWord() {
+      const clone = document.getElementById('resumeView').cloneNode(true);
+      const htmlContent = `
+        <html>
+          <head><meta charset="utf-8"></head>
+          <body>${clone.innerHTML}</body>
+        </html>`;
+      const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = '이력서.doc';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Docx 저장 (.docx)
+    async function exportToDocx() {
+      const clone = document.getElementById('resumeView').cloneNode(true);
+      const html = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office'
+              xmlns:w='urn:schemas-microsoft-com:office:word'
+              xmlns='http://www.w3.org/TR/REC-html40'>
+          <head><meta charset='utf-8'></head>
+          <body>${clone.innerHTML}</body>
+        </html>`;
+      const blob = window.htmlDocx.asBlob(html, { orientation: 'portrait' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = '이력서.docx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
