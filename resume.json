@@ -2,6 +2,7 @@
   "personal": {
     "name": "임태권",
     "email": "drimtk07@gmail.com",
+    "phone": "010-2176-2123",
     "location": "인천광역시 중구",
     "github": "https://github.com/drimtk07/resume"
   },
@@ -92,6 +93,37 @@
   ],
   "experiences": [
     {
+      "period": "2024.01 ~ 현재",
+      "company_kor": "넥스쳐컴",
+      "company_eng": "Nexturecom",
+      "total_months": 18,
+      "role": "과장 / PM/DBA",
+      "industry": "공공기관 프로젝트",
+      "responsibilities": [
+        "IoT/AI 기반 공기질 관리 및 조기경보 시스템 구축",
+        "공공기관 투자유치용 제안서 작성 및 기술 제안서 검토",
+        "IoT 센서 데이터 수집 서버 설계 및 구축 (Node.js)",
+        "디바이스 펌웨어 개발",
+        "데이터베이스 설계 및 구축 (MySQL, Redis)",
+        "경보 로직 구현 및 실시간 알림 시스템 개발",
+        "Linux 스케줄링을 활용한 데이터 수집 자동화",
+        "D3.js를 활용한 데이터 시각화 및 리포트 생성",
+        "준비중인 차세대 기반 기술 조사: matter, flutter, mongodb/redis, hbase, elasticsearch, postgresql"
+      ],
+      "skills": [
+        "Python",
+        "Node.js",
+        "D3.js",
+        "MySQL",
+        "Redis",
+        "REST API",
+        "WebSocket",
+        "MQTT",
+        "Linux",
+        "AWS"
+      ]
+    },
+    {
       "period": "2024.10 ~ 2025.01",
       "company_kor": "우리스소프트",
       "company_eng": "Oorissoft",
@@ -145,37 +177,6 @@
         "Redis",
         "REST API",
         "WebSocket",
-        "AWS"
-      ]
-    },
-    {
-      "period": "2024.01 ~ 2024.09",
-      "company_kor": "넥스쳐컴",
-      "company_eng": "Nexturecom",
-      "total_months": 9,
-      "role": "과장 / PM/DBA",
-      "industry": "공공기관 프로젝트",
-      "responsibilities": [
-        "IoT/AI 기반 공기질 관리 및 조기경보 시스템 구축",
-        "공공기관 투자유치용 제안서 작성 및 기술 제안서 검토",
-        "IoT 센서 데이터 수집 서버 설계 및 구축 (Node.js)",
-        "디바이스 펌웨어 개발",
-        "데이터베이스 설계 및 구축 (MySQL, Redis)",
-        "경보 로직 구현 및 실시간 알림 시스템 개발",
-        "Linux 스케줄링을 활용한 데이터 수집 자동화",
-        "D3.js를 활용한 데이터 시각화 및 리포트 생성",
-        "준비중인 차세대 기반 기술 조사: matter, flutter, mongodb/redis, hbase, elasticsearch, postgresql"
-      ],
-      "skills": [
-        "Python",
-        "Node.js",
-        "D3.js",
-        "MySQL",
-        "Redis",
-        "REST API",
-        "WebSocket",
-        "MQTT",
-        "Linux",
         "AWS"
       ]
     },

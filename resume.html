@@ -311,7 +311,7 @@
 
         if (exp.total_months) {
           const badge = document.createElement('span');
-          badge.textContent = `${exp.total_months}개월`;
+          badge.textContent = `${exp.total_months >= 12 ? Math.floor(exp.total_months / 12) + '년 ' : ''}${exp.total_months % 12 ? exp.total_months % 12 + '개월' : ''}`.trim();
           badge.style.cssText = "display:inline-block;background:#2E51A2;color:#fff;border-radius:4px;padding:2px 6px;font-size:0.8rem;";
           headerDiv.appendChild(badge);
         }
